@@ -6,6 +6,7 @@ import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
+import { AuroraBackground } from "@/components/AuroraBackground";
 import { motion } from "framer-motion";
 
 // Add framer-motion
@@ -42,19 +43,21 @@ const Index = () => {
   }, []);
   
   return (
-    <motion.div
-      className="min-h-screen"
-      initial="initial"
-      animate="animate"
-      variants={pageVariants}
-    >
-      <Navbar />
-      <Hero />
-      <AboutSection />
-      <ProjectsSection />
-      <ContactSection />
-      <Footer />
-    </motion.div>
+    <AuroraBackground showRadialGradient={true}>
+      <motion.div
+        className="min-h-screen w-full"
+        initial="initial"
+        animate="animate"
+        variants={pageVariants}
+      >
+        <Navbar />
+        <Hero />
+        <AboutSection />
+        <ProjectsSection />
+        <ContactSection />
+        <Footer />
+      </motion.div>
+    </AuroraBackground>
   );
 };
 

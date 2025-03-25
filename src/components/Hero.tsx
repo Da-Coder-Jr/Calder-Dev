@@ -1,6 +1,8 @@
 
 import { motion } from "framer-motion";
 import { SearchBar } from "./SearchBar";
+import { RainbowButton } from "./RainbowButton";
+import { MorphingText } from "./MorphingText";
 
 export function Hero() {
   return (
@@ -31,19 +33,27 @@ export function Hero() {
           >
             <span className="text-gradient">Hi, I'm </span>
             <span className="relative inline-block">
-              <span className="relative z-10">Alex</span>
+              <span className="relative z-10">Calder</span>
               <span className="absolute bottom-1 left-0 w-full h-3 bg-primary/20 -z-0 transform -rotate-1"></span>
             </span>
           </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl text-muted-foreground mb-8 leading-relaxed"
+            className="mb-8"
           >
-            I design and develop experiences that make people's lives simple.
-          </motion.p>
+            <MorphingText 
+              texts={[
+                "I design amazing experiences",
+                "I build creative websites",
+                "I craft digital solutions",
+                "I turn ideas into reality"
+              ]} 
+              className="text-2xl md:text-3xl h-12 md:h-16"
+            />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -51,12 +61,11 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <a
-              href="#contact"
-              className="px-8 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg hover-scale"
+            <RainbowButton
+              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Contact Me
-            </a>
+              Get in Touch
+            </RainbowButton>
             
             <SearchBar />
           </motion.div>

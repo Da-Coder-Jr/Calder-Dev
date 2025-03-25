@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -8,43 +8,10 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
-  const [isDark, setIsDark] = useState(false);
-  
-  useEffect(() => {
-    // Check if user prefers dark mode
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
-    
-    // Listen for changes
-    const darkModeListener = (e: MediaQueryListEvent) => {
-      setIsDark(e.matches);
-      if (e.matches) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    };
-    
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', darkModeListener);
-    
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', darkModeListener);
-    };
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-    } else {
-      document.documentElement.classList.add('dark');
-    }
-  };
+  const [isDark, setIsDark] = useState(true);
 
   return (
-    <div
+    <button
       className={cn(
         "flex w-16 h-8 p-1 rounded-full cursor-pointer transition-all duration-300",
         isDark 
@@ -52,7 +19,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
           : "bg-white border border-zinc-200",
         className
       )}
-      onClick={toggleTheme}
+      onClick={() => setIsDark(!isDark)}
       role="button"
       tabIndex={0}
     >
@@ -98,6 +65,6 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 }

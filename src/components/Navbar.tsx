@@ -128,7 +128,7 @@ export function Navbar() {
       >
         <div className="container max-w-6xl mx-auto flex items-center justify-between">
           <a href="#home" className="text-xl font-semibold flex items-center gap-2">
-            <span className="text-primary">My</span>
+            <span className="text-primary">Calder's</span>
             <span>Portfolio</span>
           </a>
           
