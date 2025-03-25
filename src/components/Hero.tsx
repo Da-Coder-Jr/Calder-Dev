@@ -1,10 +1,28 @@
 
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { SearchBar } from "./SearchBar";
 import { RainbowButton } from "./RainbowButton";
 import { MorphingText } from "./MorphingText";
+import { useEffect } from "react";
 
 export function Hero() {
+  const waveControls = useAnimation();
+  
+  useEffect(() => {
+    // Start the waving animation
+    const waveAnimation = async () => {
+      while (true) {
+        await waveControls.start({
+          rotate: [0, 20, 0, 20, 0],
+          transition: { duration: 1.5, repeat: 2, repeatDelay: 1 }
+        });
+        await new Promise(resolve => setTimeout(resolve, 5000));
+      }
+    };
+    
+    waveAnimation();
+  }, [waveControls]);
+
   return (
     <section id="home" className="min-h-screen pt-20 pb-10 flex flex-col justify-center relative overflow-hidden">
       {/* Background gradient effects */}
@@ -29,13 +47,20 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight flex items-center justify-center gap-3"
           >
             <span className="text-gradient">Hi, I'm </span>
             <span className="relative inline-block">
               <span className="relative z-10">Calder</span>
               <span className="absolute bottom-1 left-0 w-full h-3 bg-primary/20 -z-0 transform -rotate-1"></span>
             </span>
+            <motion.span
+              className="inline-block origin-bottom-right"
+              animate={waveControls}
+              style={{ originX: 0.7, originY: 0.7 }}
+            >
+              👋
+            </motion.span>
           </motion.h1>
 
           <motion.div

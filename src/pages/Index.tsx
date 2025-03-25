@@ -16,6 +16,18 @@ const pageVariants = {
 };
 
 const Index = () => {
+  // Set up dark mode based on user preference
+  useEffect(() => {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const initialIsDark = darkModeMediaQuery.matches;
+    
+    if (initialIsDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+  
   // Smooth scroll for anchor links
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {

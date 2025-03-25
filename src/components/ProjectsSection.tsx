@@ -2,39 +2,18 @@
 import { motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
 
-interface Project {
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  github?: string;
-  demo?: string;
-}
-
-const projects: Project[] = [
+const projects = [
   {
     title: "Portfolio Website",
-    description: "A personal portfolio website showcasing my projects and skills. Built with React and Tailwind CSS.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+    description: "A personal portfolio website showcasing my skills and projects built with React and Tailwind CSS.",
     tags: ["React", "Tailwind CSS", "Framer Motion"],
-    github: "https://github.com",
-    demo: "https://example.com"
+    github: "https://github.com/Da-Coder-Jr"
   },
   {
-    title: "E-commerce Platform",
-    description: "A full-featured online store with product listings, cart functionality, and payment processing.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1015&auto=format&fit=crop",
-    tags: ["Next.js", "TypeScript", "Stripe"],
-    github: "https://github.com",
-    demo: "https://example.com"
-  },
-  {
-    title: "Task Management App",
-    description: "A productivity application for managing tasks, projects, and deadlines with a clean interface.",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=1039&auto=format&fit=crop",
-    tags: ["React", "Redux", "Node.js"],
-    github: "https://github.com",
-    demo: "https://example.com"
+    title: "Web Development Projects",
+    description: "Various web development projects featuring modern UI/UX design principles and responsive layouts.",
+    tags: ["JavaScript", "HTML/CSS", "Responsive Design"],
+    github: "https://github.com/Da-Coder-Jr"
   }
 ];
 
@@ -77,7 +56,7 @@ export function ProjectsSection() {
             </motion.div>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -87,47 +66,28 @@ export function ProjectsSection() {
                 viewport={{ once: true, margin: "-100px" }}
                 className="group relative rounded-2xl overflow-hidden bg-card border border-border h-full flex flex-col hover:shadow-xl transition-shadow duration-300"
               >
-                <div className="relative aspect-video overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <div className="flex gap-3">
-                      {project.github && (
-                        <a 
-                          href={project.github} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
-                        >
-                          <Github className="w-5 h-5" />
-                        </a>
-                      )}
-                      {project.demo && (
-                        <a 
-                          href={project.demo} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
-                        >
-                          <ExternalLink className="w-5 h-5" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                
                 <div className="p-6 flex-grow flex flex-col">
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                   <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
+                  <div className="flex flex-wrap gap-2 mt-auto mb-4">
                     {project.tags.map(tag => (
                       <span key={tag} className="px-3 py-1 bg-secondary rounded-full text-xs font-medium">
                         {tag}
                       </span>
                     ))}
+                  </div>
+                  <div className="flex gap-3">
+                    {project.github && (
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 py-2 px-4 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors text-sm"
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>View on GitHub</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -140,7 +100,7 @@ export function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true, margin: "-100px" }}
-              href="https://github.com"
+              href="https://github.com/Da-Coder-Jr"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 py-3 px-6 rounded-full bg-card border border-border hover:bg-card/80 transition-colors"

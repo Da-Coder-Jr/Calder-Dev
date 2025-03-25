@@ -86,7 +86,7 @@ export function Navbar() {
       {/* Mobile menu */}
       {isMobile && (
         <motion.div
-          className={`fixed inset-0 z-40 bg-background/80 backdrop-blur-md ${isMenuOpen ? 'flex' : 'hidden'} flex-col items-center justify-center gap-8 p-4`}
+          className={`fixed inset-0 z-40 bg-background/80 backdrop-blur-md flex-col items-center justify-center gap-8 p-4 ${isMenuOpen ? 'flex' : 'hidden'}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: isMenuOpen ? 1 : 0 }}
           transition={{ duration: 0.2 }}

@@ -5,8 +5,8 @@ import { Code, Paintbrush, Lightbulb, Rocket } from "lucide-react";
 export function AboutSection() {
   const skills = [
     "JavaScript", "TypeScript", "React", "Next.js", 
-    "Node.js", "HTML/CSS", "Tailwind CSS", "GraphQL",
-    "SQL", "MongoDB", "Git", "AWS"
+    "Node.js", "HTML/CSS", "Tailwind CSS", "Framer Motion",
+    "Git", "UI/UX Design"
   ];
 
   return (
@@ -42,7 +42,7 @@ export function AboutSection() {
               className="max-w-2xl mx-auto"
             >
               <p className="text-lg text-muted-foreground">
-                I'm a passionate developer with a love for creating beautiful, functional digital experiences.
+                I'm Calder, a passionate developer with a love for creating beautiful, functional digital experiences.
               </p>
             </motion.div>
           </div>
@@ -54,17 +54,51 @@ export function AboutSection() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true, margin: "-100px" }}
             >
-              <div className="relative">
-                <div className="aspect-square rounded-2xl overflow-hidden bg-muted">
-                  <img 
-                    src="/lovable-uploads/e120232b-9cb4-4910-8b0a-4e4bd8515cc1.png" 
-                    alt="Profile" 
-                    className="w-full h-full object-cover"
-                  />
+              <div className="relative bg-gradient-to-br from-primary/10 via-secondary/20 to-primary/5 rounded-2xl p-8">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Code className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Clean Code</h4>
+                      <p className="text-sm text-muted-foreground">I write maintainable, efficient code</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Paintbrush className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Creative Design</h4>
+                      <p className="text-sm text-muted-foreground">I craft beautiful user interfaces</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Lightbulb className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Problem Solving</h4>
+                      <p className="text-sm text-muted-foreground">I find creative solutions to challenges</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Rocket className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Continuous Learning</h4>
+                      <p className="text-sm text-muted-foreground">I'm always expanding my skills</p>
+                    </div>
+                  </div>
                 </div>
                 
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/10 rounded-2xl -z-10"></div>
-                <div className="absolute -top-6 -left-6 w-32 h-32 bg-primary/10 rounded-2xl -z-10"></div>
+                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/5 rounded-2xl -z-10"></div>
+                <div className="absolute -top-6 -left-6 w-32 h-32 bg-primary/5 rounded-2xl -z-10"></div>
               </div>
             </motion.div>
             
@@ -77,43 +111,16 @@ export function AboutSection() {
               >
                 <h3 className="text-2xl font-bold mb-4">My Journey</h3>
                 <p className="text-muted-foreground mb-6">
-                  With over 5 years of experience in web development, I've worked on a variety of projects 
-                  ranging from small business websites to complex enterprise applications. My approach combines 
-                  technical expertise with an eye for design, ensuring that the end product is not only functional 
-                  but also visually appealing and user-friendly.
+                  As a web developer, I focus on creating intuitive and engaging user experiences.
+                  I'm passionate about both frontend and backend development, constantly exploring
+                  new technologies and approaches to build better digital solutions.
                 </p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="grid grid-cols-2 gap-4"
-              >
-                <div className="p-4 rounded-xl bg-card border border-border">
-                  <Code className="w-8 h-8 text-primary mb-3" />
-                  <h4 className="font-medium mb-1">Development</h4>
-                  <p className="text-sm text-muted-foreground">Building robust web applications</p>
-                </div>
-                
-                <div className="p-4 rounded-xl bg-card border border-border">
-                  <Paintbrush className="w-8 h-8 text-primary mb-3" />
-                  <h4 className="font-medium mb-1">Design</h4>
-                  <p className="text-sm text-muted-foreground">Creating beautiful interfaces</p>
-                </div>
-                
-                <div className="p-4 rounded-xl bg-card border border-border">
-                  <Lightbulb className="w-8 h-8 text-primary mb-3" />
-                  <h4 className="font-medium mb-1">Innovation</h4>
-                  <p className="text-sm text-muted-foreground">Finding creative solutions</p>
-                </div>
-                
-                <div className="p-4 rounded-xl bg-card border border-border">
-                  <Rocket className="w-8 h-8 text-primary mb-3" />
-                  <h4 className="font-medium mb-1">Growth</h4>
-                  <p className="text-sm text-muted-foreground">Always learning new technologies</p>
-                </div>
+                <p className="text-muted-foreground">
+                  When I'm not coding, you can find me learning about new technologies,
+                  contributing to open source projects, or exploring creative design ideas.
+                  Feel free to check out my <a href="https://github.com/Da-Coder-Jr" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GitHub</a> for 
+                  my latest projects and contributions.
+                </p>
               </motion.div>
             </div>
           </div>
