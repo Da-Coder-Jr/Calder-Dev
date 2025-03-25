@@ -3,8 +3,6 @@ import { useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { AboutSection } from "@/components/AboutSection";
-import { ProjectsSection } from "@/components/ProjectsSection";
-import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { motion } from "framer-motion";
@@ -65,8 +63,6 @@ const Index = () => {
         <Navbar />
         <Hero />
         <AboutSection />
-        <ProjectsSection />
-        <ContactSection />
         <Footer />
       </motion.div>
     </AuroraBackground>

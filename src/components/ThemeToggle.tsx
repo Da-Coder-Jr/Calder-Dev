@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface ThemeToggleProps {
   className?: string;
@@ -13,7 +14,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   // Check the system preference on initial load
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const initialIsDark = darkModeMediaQuery.matches;
+    const initialIsDark = darkModeMediaQuery.matches || document.documentElement.classList.contains('dark');
     setIsDark(initialIsDark);
     
     // Apply the class immediately on component mount
@@ -47,61 +48,31 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   };
 
   return (
-    <button
+    <motion.button
       className={cn(
-        "flex w-16 h-8 p-1 rounded-full cursor-pointer transition-all duration-300",
+        "flex w-10 h-10 rounded-full cursor-pointer justify-center items-center",
         isDark 
-          ? "bg-zinc-950 border border-zinc-800" 
-          : "bg-white border border-zinc-200",
+          ? "bg-zinc-800" 
+          : "bg-zinc-100",
         className
       )}
       onClick={toggleTheme}
+      whileTap={{ scale: 0.9 }}
       role="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       tabIndex={0}
     >
-      <div className="flex justify-between items-center w-full">
-        <div
-          className={cn(
-            "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300",
-            isDark 
-              ? "transform translate-x-0 bg-zinc-800" 
-              : "transform translate-x-8 bg-gray-200"
-          )}
-        >
-          {isDark ? (
-            <Moon 
-              className="w-4 h-4 text-white" 
-              strokeWidth={1.5}
-            />
-          ) : (
-            <Sun 
-              className="w-4 h-4 text-gray-700" 
-              strokeWidth={1.5}
-            />
-          )}
-        </div>
-        <div
-          className={cn(
-            "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300",
-            isDark 
-              ? "bg-transparent" 
-              : "transform -translate-x-8"
-          )}
-        >
-          {isDark ? (
-            <Sun 
-              className="w-4 h-4 text-gray-500" 
-              strokeWidth={1.5}
-            />
-          ) : (
-            <Moon 
-              className="w-4 h-4 text-black" 
-              strokeWidth={1.5}
-            />
-          )}
-        </div>
-      </div>
-    </button>
+      <motion.div
+        initial={false}
+        animate={{ rotate: isDark ? 0 : 180, opacity: 1 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        {isDark ? (
+          <Moon className="w-5 h-5 text-white" strokeWidth={1.5} />
+        ) : (
+          <Sun className="w-5 h-5 text-zinc-700" strokeWidth={1.5} />
+        )}
+      </motion.div>
+    </motion.button>
   );
 }

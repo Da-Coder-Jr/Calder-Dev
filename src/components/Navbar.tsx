@@ -1,21 +1,18 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Home, User, Briefcase, Mail, Menu, X } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface NavItem {
   name: string;
   url: string;
-  icon: typeof Home;
 }
 
 const navItems: NavItem[] = [
-  { name: "Home", url: "#home", icon: Home },
-  { name: "About", url: "#about", icon: User },
-  { name: "Projects", url: "#projects", icon: Briefcase },
-  { name: "Contact", url: "#contact", icon: Mail },
+  { name: "Home", url: "#home" },
+  { name: "About", url: "#about" },
 ];
 
 export function Navbar() {
@@ -86,43 +83,46 @@ export function Navbar() {
       {/* Mobile menu */}
       {isMobile && (
         <motion.div
-          className={`fixed inset-0 z-40 bg-background/80 backdrop-blur-md flex-col items-center justify-center gap-8 p-4 ${isMenuOpen ? 'flex' : 'hidden'}`}
+          className={`fixed inset-0 z-40 bg-background/90 backdrop-blur-md flex-col items-center justify-center gap-8 p-4 ${isMenuOpen ? 'flex' : 'hidden'}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: isMenuOpen ? 1 : 0 }}
           transition={{ duration: 0.2 }}
         >
           <ThemeToggle className="mb-4" />
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.name;
-            
-            return (
-              <a
-                key={item.name}
-                href={item.url}
-                onClick={() => {
-                  setActiveTab(item.name);
-                  setIsMenuOpen(false);
-                }}
-                className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
-                  isActive 
-                    ? "bg-primary/10 text-primary" 
-                    : "text-foreground/70 hover:text-primary hover:bg-primary/5"
-                )}
-              >
-                <Icon size={20} />
-                <span>{item.name}</span>
-              </a>
-            );
-          })}
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.url}
+              onClick={() => {
+                setActiveTab(item.name);
+                setIsMenuOpen(false);
+              }}
+              className={cn(
+                "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                activeTab === item.name 
+                  ? "bg-primary/10 text-primary" 
+                  : "text-foreground/70 hover:text-primary hover:bg-primary/5"
+              )}
+            >
+              <span>{item.name}</span>
+            </a>
+          ))}
+          <a 
+            href="https://github.com/Da-Coder-Jr" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-3 rounded-lg text-foreground/70 hover:text-primary hover:bg-primary/5"
+          >
+            <Github size={20} />
+            <span>GitHub</span>
+          </a>
         </motion.div>
       )}
       
-      {/* Desktop navbar */}
+      {/* Desktop navbar - simplified like the reference */}
       <div
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden md:block",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled ? "py-2 bg-background/80 backdrop-blur-md shadow-sm" : "py-4"
         )}
       >
@@ -132,48 +132,44 @@ export function Navbar() {
             <span>Portfolio</span>
           </a>
           
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-3 bg-background/5 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg border border-border">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeTab === item.name;
-                
-                return (
-                  <a
-                    key={item.name}
-                    href={item.url}
-                    onClick={() => setActiveTab(item.name)}
-                    className={cn(
-                      "relative cursor-pointer text-sm font-medium px-6 py-2 rounded-full transition-colors",
-                      "text-foreground/80 hover:text-primary",
-                      isActive && "bg-muted text-primary",
-                    )}
-                  >
-                    <span className="hidden md:inline">{item.name}</span>
-                    <span className="md:hidden">
-                      <Icon size={18} strokeWidth={2.5} />
-                    </span>
-                    {isActive && (
-                      <motion.div
-                        layoutId="lamp"
-                        className="absolute inset-0 w-full bg-primary/5 rounded-full -z-10"
-                        initial={false}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      >
-                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
-                          <div className="absolute w-12 h-6 bg-primary/20 rounded-full blur-md -top-2 -left-2" />
-                          <div className="absolute w-8 h-6 bg-primary/20 rounded-full blur-md -top-1" />
-                          <div className="absolute w-4 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2" />
-                        </div>
-                      </motion.div>
-                    )}
-                  </a>
-                );
-              })}
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  onClick={() => setActiveTab(item.name)}
+                  className={cn(
+                    "relative text-sm font-medium transition-colors",
+                    activeTab === item.name 
+                      ? "text-primary" 
+                      : "text-foreground/80 hover:text-primary"
+                  )}
+                >
+                  {item.name}
+                  {activeTab === item.name && (
+                    <motion.div
+                      layoutId="navIndicator"
+                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"
+                      initial={false}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </a>
+              ))}
+              <a 
+                href="https://github.com/Da-Coder-Jr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors flex items-center gap-1.5"
+              >
+                <Github size={18} />
+                <span>GitHub</span>
+              </a>
             </div>
             
             <ThemeToggle />
