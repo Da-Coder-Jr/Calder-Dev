@@ -101,25 +101,26 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-24 max-w-4xl mx-auto bg-background/40 dark:bg-background/20 backdrop-blur-lg border border-border rounded-3xl p-6 shadow-xl"
+          className="mt-24 max-w-4xl mx-auto"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="space-y-2">
-              <h3 className="text-3xl font-bold">5+</h3>
-              <p className="text-sm text-muted-foreground">Years Experience</p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-3xl font-bold">50+</h3>
-              <p className="text-sm text-muted-foreground">Projects Completed</p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-3xl font-bold">20+</h3>
-              <p className="text-sm text-muted-foreground">Happy Clients</p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-3xl font-bold">∞</h3>
-              <p className="text-sm text-muted-foreground">Coffee Consumed</p>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: "5+", label: "Years Experience" },
+              { value: "50+", label: "Projects Completed" },
+              { value: "20+", label: "Happy Clients" },
+              { value: "∞", label: "Coffee Consumed" }
+            ].map((stat, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 + (index * 0.1) }}
+                className="glass-morphism p-6 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              >
+                <h3 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">{stat.value}</h3>
+                <p className="text-sm text-muted-foreground">{stat.label}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

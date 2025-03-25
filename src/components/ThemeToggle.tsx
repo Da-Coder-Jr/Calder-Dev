@@ -50,13 +50,14 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   return (
     <motion.button
       className={cn(
-        "flex w-10 h-10 rounded-full cursor-pointer justify-center items-center",
+        "flex w-10 h-10 rounded-full cursor-pointer justify-center items-center overflow-hidden",
         isDark 
-          ? "bg-zinc-800" 
-          : "bg-zinc-100",
+          ? "bg-zinc-800 border border-zinc-700" 
+          : "bg-zinc-100 border border-zinc-200",
         className
       )}
       onClick={toggleTheme}
+      whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       role="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
@@ -64,13 +65,17 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     >
       <motion.div
         initial={false}
-        animate={{ rotate: isDark ? 0 : 180, opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        animate={{ 
+          rotate: isDark ? 0 : 180, 
+          opacity: 1,
+          scale: [0.8, 1]
+        }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
       >
         {isDark ? (
-          <Moon className="w-5 h-5 text-white" strokeWidth={1.5} />
+          <Moon className="w-5 h-5 text-yellow-300" strokeWidth={1.5} />
         ) : (
-          <Sun className="w-5 h-5 text-zinc-700" strokeWidth={1.5} />
+          <Sun className="w-5 h-5 text-amber-500" strokeWidth={1.5} />
         )}
       </motion.div>
     </motion.button>

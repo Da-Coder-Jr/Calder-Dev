@@ -72,12 +72,13 @@ export function Navbar() {
     <>
       {/* Mobile menu button */}
       <div className="fixed top-4 right-4 z-50 md:hidden">
-        <button
+        <motion.button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="p-2 bg-background/80 backdrop-blur-md rounded-full shadow-md border border-border"
+          whileTap={{ scale: 0.95 }}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        </motion.button>
       </div>
       
       {/* Mobile menu */}
@@ -119,18 +120,25 @@ export function Navbar() {
         </motion.div>
       )}
       
-      {/* Desktop navbar - simplified like the reference */}
-      <div
+      {/* Desktop navbar */}
+      <motion.div
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled ? "py-2 bg-background/80 backdrop-blur-md shadow-sm" : "py-4"
+          scrolled ? "py-2 glass-morphism shadow-lg" : "py-4"
         )}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <div className="container max-w-6xl mx-auto flex items-center justify-between">
-          <a href="#home" className="text-xl font-semibold flex items-center gap-2">
+          <motion.a 
+            href="#home" 
+            className="text-xl font-semibold flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+          >
             <span className="text-primary">Calder's</span>
             <span>Portfolio</span>
-          </a>
+          </motion.a>
           
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-6">
@@ -161,21 +169,23 @@ export function Navbar() {
                   )}
                 </a>
               ))}
-              <a 
+              <motion.a 
                 href="https://github.com/Da-Coder-Jr" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors flex items-center gap-1.5"
+                className="text-sm font-medium flex items-center gap-1.5 bg-primary/10 px-3 py-1.5 rounded-md hover:bg-primary/20 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Github size={18} />
                 <span>GitHub</span>
-              </a>
+              </motion.a>
             </div>
             
             <ThemeToggle />
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
