@@ -7,17 +7,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-// Add framer-motion as dependency
-import { MotionConfig, LazyMotion, domAnimation, AnimationFeature } from "framer-motion";
-
-// Create a custom set of features that includes animation
-const features = [domAnimation, AnimationFeature];
+// Add framer-motion as dependency with correct imports
+import { MotionConfig, LazyMotion, domAnimation } from "framer-motion";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LazyMotion features={features}>
+    <LazyMotion features={domAnimation}>
       <MotionConfig reducedMotion="user" transition={{ 
         type: "spring", 
         stiffness: 300, 
