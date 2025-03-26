@@ -1,4 +1,6 @@
 
+"use client";
+
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -54,83 +56,61 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       onClick={toggleTheme}
       className={cn(
-        "relative overflow-hidden flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300",
-        isDark ? "bg-gradient-to-br from-indigo-900 to-purple-900" : "bg-gradient-to-br from-amber-300 to-yellow-500",
+        "relative flex h-8 w-16 items-center rounded-full border p-1 transition-colors duration-300",
+        isDark 
+          ? "border-zinc-800 bg-zinc-950" 
+          : "border-zinc-200 bg-white",
         className
       )}
     >
-      <div className="absolute inset-0 backdrop-blur-sm bg-white/10 rounded-full" />
+      <motion.div 
+        className="absolute inset-0 flex items-center justify-between px-1.5"
+        initial={false}
+      >
+        <Sun className={cn(
+          "h-4 w-4 transition-colors duration-300",
+          isDark ? "text-zinc-500" : "text-amber-500"
+        )} strokeWidth={1.5} />
+        <Moon className={cn(
+          "h-4 w-4 transition-colors duration-300",
+          isDark ? "text-blue-400" : "text-zinc-400"
+        )} strokeWidth={1.5} />
+      </motion.div>
       
-      <div className="relative z-10 flex items-center justify-center">
+      <motion.div 
+        className="z-10 h-6 w-6 rounded-full bg-gradient-to-br shadow-md"
+        animate={{ 
+          x: isDark ? 0 : 32,
+          backgroundColor: isDark ? "rgb(39, 39, 42)" : "rgb(229, 231, 235)" 
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      >
         <AnimatePresence mode="wait" initial={false}>
           {isDark ? (
             <motion.div
               key="moon"
-              initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.2 }}
+              className="flex h-full w-full items-center justify-center"
             >
-              <Moon className="w-6 h-6 text-yellow-300" strokeWidth={1.5} />
+              <Moon className="h-3.5 w-3.5 text-blue-400" strokeWidth={1.5} />
             </motion.div>
           ) : (
             <motion.div
               key="sun"
-              initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              initial={{ opacity: 0, rotate: 90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: -90 }}
+              transition={{ duration: 0.2 }}
+              className="flex h-full w-full items-center justify-center"
             >
-              <Sun className="w-6 h-6 text-amber-500" strokeWidth={1.5} />
+              <Sun className="h-3.5 w-3.5 text-amber-500" strokeWidth={1.5} />
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-      
-      {/* Background stars for dark mode */}
-      {isDark && (
-        <>
-          <motion.div 
-            className="absolute w-1 h-1 bg-white rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0], x: [-5, -8], y: [-5, -8] }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-            style={{ top: "25%", left: "25%" }}
-          />
-          <motion.div 
-            className="absolute w-1 h-1 bg-white rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0], x: [5, 8], y: [5, 8] }}
-            transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
-            style={{ bottom: "30%", right: "30%" }}
-          />
-          <motion.div 
-            className="absolute w-0.5 h-0.5 bg-white rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse", delay: 1 }}
-            style={{ top: "40%", right: "25%" }}
-          />
-        </>
-      )}
-      
-      {/* Background clouds for light mode */}
-      {!isDark && (
-        <>
-          <motion.div 
-            className="absolute w-6 h-3 bg-white/70 rounded-full"
-            animate={{ x: [0, 2, 0], opacity: [0.5, 0.7, 0.5] }}
-            transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-            style={{ top: "30%", left: "15%" }}
-          />
-          <motion.div 
-            className="absolute w-4 h-2 bg-white/70 rounded-full"
-            animate={{ x: [0, -2, 0], opacity: [0.6, 0.8, 0.6] }}
-            transition={{ duration: 2.5, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
-            style={{ bottom: "25%", right: "20%" }}
-          />
-        </>
-      )}
+      </motion.div>
     </motion.button>
   );
 }

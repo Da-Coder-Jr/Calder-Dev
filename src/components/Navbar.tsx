@@ -13,7 +13,11 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: "Home", url: "#home" },
   { name: "About", url: "#about" },
+  { name: "Projects", url: "#projects" },
+  { name: "Contact", url: "#contact" },
 ];
+
+const MotionLink = motion.a;
 
 export function Navbar() {
   const [activeTab, setActiveTab] = useState(navItems[0].name);
@@ -88,7 +92,7 @@ export function Navbar() {
             />
             
             <motion.button
-              className="absolute top-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary"
+              className="absolute right-6 top-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary"
               onClick={() => setIsMenuOpen(false)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -110,7 +114,7 @@ export function Navbar() {
                     setIsMenuOpen(false);
                   }}
                   className={cn(
-                    "relative px-8 py-4 text-xl font-medium rounded-lg transition-colors",
+                    "relative rounded-lg px-8 py-4 text-xl font-medium transition-colors",
                     activeTab === item.name 
                       ? "text-primary" 
                       : "text-foreground/70 hover:text-primary"
@@ -122,7 +126,7 @@ export function Navbar() {
                 >
                   {activeTab === item.name && (
                     <motion.div
-                      className="absolute inset-0 bg-primary/10 rounded-lg -z-10"
+                      className="absolute -z-10 inset-0 rounded-lg bg-primary/10"
                       layoutId="mobileNavIndicator"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -138,7 +142,7 @@ export function Navbar() {
                 href="https://github.com/Da-Coder-Jr" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-8 py-4 text-xl font-medium rounded-lg text-foreground/70 hover:text-primary"
+                className="flex items-center gap-2 rounded-lg px-8 py-4 text-xl font-medium text-foreground/70 hover:text-primary"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -155,9 +159,9 @@ export function Navbar() {
       </AnimatePresence>
       
       {/* Desktop navbar */}
-      <motion.div
+      <motion.header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed left-0 right-0 top-0 z-50 transition-all duration-300",
           scrolled ? "py-2" : "py-4"
         )}
         initial={{ y: -100 }}
@@ -165,12 +169,12 @@ export function Navbar() {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <div className={cn(
-          "container max-w-6xl mx-auto px-4 flex items-center justify-between rounded-full transition-all duration-300",
+          "mx-auto flex max-w-6xl items-center justify-between rounded-full px-4 transition-all duration-300",
           scrolled ? "glass-morphism" : ""
         )}>
           <motion.a 
             href="#home" 
-            className="text-xl font-bold flex items-center gap-2"
+            className="flex items-center gap-2 text-xl font-bold"
             whileHover={{ scale: 1.05 }}
           >
             <span className="text-gradient">Calder's</span>
@@ -181,7 +185,7 @@ export function Navbar() {
             {isMobile ? (
               <motion.button
                 onClick={() => setIsMenuOpen(true)}
-                className="p-2 rounded-lg"
+                className="rounded-lg p-2"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -191,14 +195,14 @@ export function Navbar() {
               </motion.button>
             ) : (
               <div className="flex items-center gap-6">
-                <div className="flex items-center gap-6">
+                <nav className="flex items-center gap-1">
                   {navItems.map((item) => (
-                    <motion.a
+                    <MotionLink
                       key={item.name}
                       href={item.url}
                       onClick={() => setActiveTab(item.name)}
                       className={cn(
-                        "relative px-3 py-2 text-sm font-medium transition-colors",
+                        "relative px-4 py-2 text-sm font-medium transition-colors",
                         activeTab === item.name 
                           ? "text-primary" 
                           : "text-foreground/80 hover:text-primary"
@@ -210,7 +214,7 @@ export function Navbar() {
                       {activeTab === item.name && (
                         <motion.div
                           layoutId="navIndicator"
-                          className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"
+                          className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary"
                           initial={false}
                           transition={{
                             type: "spring",
@@ -219,15 +223,15 @@ export function Navbar() {
                           }}
                         />
                       )}
-                    </motion.a>
+                    </MotionLink>
                   ))}
-                </div>
+                </nav>
                 
                 <motion.a 
                   href="https://github.com/Da-Coder-Jr" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                  className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-primary transition-colors hover:bg-primary/20"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -240,7 +244,7 @@ export function Navbar() {
             <ThemeToggle />
           </div>
         </div>
-      </motion.div>
+      </motion.header>
     </>
   );
 }
