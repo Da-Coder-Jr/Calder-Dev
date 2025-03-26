@@ -1,7 +1,7 @@
 
-import { useCallback, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface MorphingTextProps {
   className?: string;
@@ -9,26 +9,22 @@ interface MorphingTextProps {
 }
 
 export function MorphingText({ texts, className }: MorphingTextProps) {
-  const [currentIndex, setCurrentIndex] = useRef(0);
-  const [displayText, setDisplayText] = useRef(texts[0]);
-  const [isAnimating, setIsAnimating] = useRef(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const animate = useCallback(() => {
-    if (isAnimating.current) return;
+  const animate = () => {
+    if (isAnimating) return;
     
-    isAnimating.current = true;
-    const nextIndex = (currentIndex.current + 1) % texts.length;
-    
-    // Update state values
-    currentIndex.current = nextIndex;
-    setDisplayText.current = texts[nextIndex];
+    setIsAnimating(true);
+    const nextIndex = (currentIndex + 1) % texts.length;
+    setCurrentIndex(nextIndex);
     
     // Reset animation flag after animation completes
     setTimeout(() => {
-      isAnimating.current = false;
+      setIsAnimating(false);
     }, 2000); // Match this with the animation duration
-  }, [texts]);
+  };
 
   useEffect(() => {
     // Start animation cycle
@@ -41,7 +37,7 @@ export function MorphingText({ texts, className }: MorphingTextProps) {
         clearInterval(intervalRef.current);
       }
     };
-  }, [animate]);
+  }, [currentIndex, texts.length, isAnimating]);
 
   const variants = {
     enter: {
@@ -69,16 +65,18 @@ export function MorphingText({ texts, className }: MorphingTextProps) {
       "relative flex h-20 w-full items-center justify-center overflow-hidden text-center font-sans text-3xl md:h-24 md:text-4xl",
       className
     )}>
-      <motion.div
-        key={currentIndex.current}
-        variants={variants}
-        initial="enter"
-        animate="center"
-        exit="exit"
-        className="absolute inset-0 flex items-center justify-center"
-      >
-        {texts[currentIndex.current]}
-      </motion.div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIndex}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {texts[currentIndex]}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
