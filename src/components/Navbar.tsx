@@ -1,7 +1,7 @@
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Github, Menu, X } from "lucide-react";
+import { Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -70,17 +70,6 @@ export function Navbar() {
 
   return (
     <>
-      {/* Mobile menu button */}
-      <div className="fixed top-4 right-4 z-50 md:hidden">
-        <motion.button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 bg-background/80 backdrop-blur-md rounded-full shadow-md border border-border"
-          whileTap={{ scale: 0.95 }}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </motion.button>
-      </div>
-      
       {/* Mobile menu */}
       {isMobile && (
         <motion.div
@@ -120,17 +109,17 @@ export function Navbar() {
         </motion.div>
       )}
       
-      {/* Desktop navbar */}
+      {/* Desktop navbar - Redesigned to match the image */}
       <motion.div
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled ? "py-2 glass-morphism shadow-lg" : "py-4"
+          scrolled ? "py-2 glass-morphism shadow-md" : "py-4"
         )}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        <div className="container max-w-6xl mx-auto flex items-center justify-between">
+        <div className="container max-w-6xl mx-auto px-4 flex items-center justify-between">
           <motion.a 
             href="#home" 
             className="text-xl font-semibold flex items-center gap-2"
@@ -140,7 +129,7 @@ export function Navbar() {
             <span>Portfolio</span>
           </motion.a>
           
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-6">
               {navItems.map((item) => (
                 <a
