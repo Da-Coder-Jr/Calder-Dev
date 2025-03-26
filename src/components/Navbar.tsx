@@ -1,9 +1,11 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ParticleLogo } from "@/components/ParticleLogo";
+import { Button } from "@/components/ui/button";
 
 interface NavItem {
   name: string;
@@ -14,7 +16,6 @@ const navItems: NavItem[] = [
   { name: "Home", url: "#home" },
   { name: "About", url: "#about" },
   { name: "Projects", url: "#projects" },
-  { name: "Contact", url: "#contact" },
 ];
 
 const MotionLink = motion.a;
@@ -78,7 +79,7 @@ export function Navbar() {
       <AnimatePresence>
         {isMobile && isMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 p-4"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 p-4"
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
             animate={{ opacity: 1, backdropFilter: "blur(15px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
@@ -92,14 +93,12 @@ export function Navbar() {
             />
             
             <motion.button
-              className="absolute right-6 top-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary"
+              className="absolute right-6 top-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
               onClick={() => setIsMenuOpen(false)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <X size={24} />
             </motion.button>
             
             <div className="z-50 flex flex-col items-center gap-6">
@@ -172,14 +171,7 @@ export function Navbar() {
           "mx-auto flex max-w-6xl items-center justify-between rounded-full px-4 transition-all duration-300",
           scrolled ? "glass-morphism" : ""
         )}>
-          <motion.a 
-            href="#home" 
-            className="flex items-center gap-2 text-xl font-bold"
-            whileHover={{ scale: 1.05 }}
-          >
-            <span className="text-gradient">Calder's</span>
-            <span>Portfolio</span>
-          </motion.a>
+          <ParticleLogo />
           
           <div className="flex items-center gap-4">
             {isMobile ? (
@@ -189,9 +181,7 @@ export function Navbar() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <Menu size={24} />
               </motion.button>
             ) : (
               <div className="flex items-center gap-6">
@@ -227,17 +217,23 @@ export function Navbar() {
                   ))}
                 </nav>
                 
-                <motion.a 
-                  href="https://github.com/Da-Coder-Jr" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-primary transition-colors hover:bg-primary/20"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <Button
+                  asChild
+                  variant="outline"
+                  className="rounded-full border-2 border-primary/20 bg-primary/5 text-primary hover:bg-primary/10"
                 >
-                  <Github size={18} />
-                  <span className="font-medium">GitHub</span>
-                </motion.a>
+                  <motion.a 
+                    href="https://github.com/Da-Coder-Jr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Github size={18} />
+                    <span className="font-medium">GitHub</span>
+                  </motion.a>
+                </Button>
               </div>
             )}
             
