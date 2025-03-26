@@ -8,14 +8,22 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 // Add framer-motion as dependency
-import { MotionConfig, LazyMotion, domAnimation } from "framer-motion";
+import { MotionConfig, LazyMotion, domAnimation, AnimationFeature } from "framer-motion";
+
+// Create a custom set of features that includes animation
+const features = [domAnimation, AnimationFeature];
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LazyMotion features={domAnimation}>
-      <MotionConfig reducedMotion="user">
+    <LazyMotion features={features}>
+      <MotionConfig reducedMotion="user" transition={{ 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 30,
+        duration: 0.3
+      }}>
         <TooltipProvider>
           <Toaster />
           <Sonner />

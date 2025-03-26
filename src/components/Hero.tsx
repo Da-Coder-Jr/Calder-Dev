@@ -78,7 +78,7 @@ export function Hero() {
                   "I craft digital solutions",
                   "I turn ideas into reality"
                 ]} 
-                className="text-2xl md:text-4xl h-16 md:h-20"
+                className="text-2xl md:text-4xl h-20 md:h-24"
               />
             </motion.div>
 
@@ -105,9 +105,9 @@ export function Hero() {
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { value: "5+", label: "Years Experience" },
-              { value: "50+", label: "Projects Completed" },
-              { value: "20+", label: "Happy Clients" },
+              { value: "3+", label: "Years Coding" },
+              { value: "10+", label: "Projects Built" },
+              { value: "5+", label: "Happy Clients" },
               { value: "∞", label: "Coffee Consumed" }
             ].map((stat, index) => (
               <motion.div 
@@ -115,7 +115,11 @@ export function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 + (index * 0.1) }}
-                className="glass-morphism p-6 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                whileHover={{ 
+                  y: -5, 
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)" 
+                }}
+                className="glass-morphism p-6 rounded-xl text-center transition-all duration-300"
               >
                 <h3 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">{stat.value}</h3>
                 <p className="text-sm text-muted-foreground">{stat.label}</p>
@@ -126,16 +130,18 @@ export function Hero() {
       </div>
 
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
-        <a
+        <motion.a
           href="#about"
-          className="w-8 h-12 border-2 border-primary rounded-full flex items-start justify-center p-1 hover-scale"
+          className="w-10 h-14 border-2 border-primary rounded-full flex items-start justify-center p-1"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
-            className="w-1 h-2 bg-primary rounded-full"
+            className="w-1.5 h-3 bg-primary rounded-full"
           />
-        </a>
+        </motion.a>
       </div>
     </section>
   );
