@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Github, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ParticleLogo } from "@/components/ParticleLogo";
+import { NavLogo } from "@/components/NavLogo";
 import { Button } from "@/components/ui/button";
 
 interface NavItem {
@@ -171,7 +171,7 @@ export function Navbar() {
           "mx-auto flex max-w-6xl items-center justify-between rounded-full px-4 transition-all duration-300",
           scrolled ? "glass-morphism" : ""
         )}>
-          <ParticleLogo />
+          <NavLogo />
           
           <div className="flex items-center gap-4">
             {isMobile ? (
@@ -204,7 +204,7 @@ export function Navbar() {
                       {activeTab === item.name && (
                         <motion.div
                           layoutId="navIndicator"
-                          className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary"
+                          className="absolute -bottom-1 left-0 h-0.5 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-primary"
                           initial={false}
                           transition={{
                             type: "spring",
@@ -220,7 +220,7 @@ export function Navbar() {
                 <Button
                   asChild
                   variant="outline"
-                  className="rounded-full border-2 border-primary/20 bg-primary/5 text-primary hover:bg-primary/10"
+                  className="rounded-full border-2 border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:scale-105 transition-all duration-300"
                 >
                   <motion.a 
                     href="https://github.com/Da-Coder-Jr" 

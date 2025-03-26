@@ -1,43 +1,33 @@
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface MorphingTextProps {
   className?: string;
   texts: string[];
+  interval?: number;
 }
 
-export function MorphingText({ texts, className }: MorphingTextProps) {
+export function MorphingText({ texts, className, interval = 3000 }: MorphingTextProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const animate = () => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    const nextIndex = (currentIndex + 1) % texts.length;
-    setCurrentIndex(nextIndex);
-    
-    // Reset animation flag after animation completes
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 2000); // Match this with the animation duration
-  };
 
   useEffect(() => {
-    // Start animation cycle
-    intervalRef.current = setInterval(() => {
-      animate();
-    }, 3000); // Time between animations
-    
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+    const timer = setInterval(() => {
+      if (!isAnimating) {
+        setIsAnimating(true);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
+        
+        // Reset animation flag after animation completes
+        setTimeout(() => {
+          setIsAnimating(false);
+        }, 1000); // Animation duration
       }
-    };
-  }, [currentIndex, texts.length, isAnimating]);
+    }, interval);
+    
+    return () => clearInterval(timer);
+  }, [texts.length, interval, isAnimating]);
 
   const variants = {
     enter: {

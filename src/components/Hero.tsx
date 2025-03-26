@@ -52,7 +52,7 @@ export function Hero() {
               <div className="mb-3 flex items-center justify-center gap-4">
                 <span>Hi, I'm</span>
                 <span className="relative">
-                  <span className="relative z-10 text-gradient">Calder</span>
+                  <span className="relative z-10 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">Calder</span>
                   <span className="absolute bottom-1 left-0 -z-0 h-3 w-full transform -rotate-1 bg-primary/20"></span>
                 </span>
                 <motion.span
@@ -117,11 +117,12 @@ export function Hero() {
                 transition={{ delay: 0.8 + (index * 0.1) }}
                 whileHover={{ 
                   y: -5, 
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)" 
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+                  scale: 1.05
                 }}
                 className="glass-morphism rounded-xl p-6 text-center transition-all duration-300"
               >
-                <h3 className="mb-2 text-3xl font-bold text-gradient md:text-4xl">{stat.value}</h3>
+                <h3 className="mb-2 text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent md:text-4xl">{stat.value}</h3>
                 <p className="text-sm text-muted-foreground">{stat.label}</p>
               </motion.div>
             ))}
@@ -139,7 +140,7 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
-            className="h-3 w-1.5 rounded-full bg-primary"
+            className="h-3 w-1.5 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-primary"
           />
         </motion.a>
       </div>
