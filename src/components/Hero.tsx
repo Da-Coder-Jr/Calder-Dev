@@ -96,38 +96,6 @@ export function Hero() {
             </motion.div>
           </div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mx-auto mt-24 max-w-4xl"
-        >
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {[
-              { value: "3+", label: "Years Experience" },
-              { value: "10+", label: "Projects Completed" },
-              { value: "5+", label: "Happy Clients" },
-              { value: "∞", label: "Coffee Consumed" }
-            ].map((stat, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + (index * 0.1) }}
-                whileHover={{ 
-                  y: -5, 
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
-                  scale: 1.05
-                }}
-                className="glass-morphism rounded-xl p-6 text-center transition-all duration-300"
-              >
-                <h3 className="mb-2 text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent md:text-4xl">{stat.value}</h3>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
 
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
