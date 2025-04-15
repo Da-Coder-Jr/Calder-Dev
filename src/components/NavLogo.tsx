@@ -81,7 +81,7 @@ export function NavLogo({ className }: NavLogoProps) {
                 number: {
                   density: {
                     enable: true,
-                    value_area: 800, // Fix: changed 'area' to 'value_area'
+                    area: 800, // Fixed: Changed 'value_area' to 'area'
                   },
                   value: 30,
                 },

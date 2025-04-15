@@ -13,27 +13,46 @@ interface ThemeToggleProps {
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const [isDark, setIsDark] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   
-  // Check the system preference on initial load
+  // Initialize theme from localStorage or system preference
   useEffect(() => {
+    // First check localStorage
+    const savedTheme = localStorage.getItem('theme');
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const initialIsDark = darkModeMediaQuery.matches || document.documentElement.classList.contains('dark');
+    
+    let initialIsDark = false;
+    
+    if (savedTheme === 'dark') {
+      initialIsDark = true;
+    } else if (savedTheme === 'light') {
+      initialIsDark = false;
+    } else {
+      // If no saved preference, use system preference
+      initialIsDark = darkModeMediaQuery.matches;
+    }
+    
     setIsDark(initialIsDark);
     
-    // Apply the class immediately on component mount
+    // Apply the theme immediately on component mount
     if (initialIsDark) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
     
+    setIsInitialized(true);
+    
     // Listen for changes in the system preference
     const handler = (e: MediaQueryListEvent) => {
-      setIsDark(e.matches);
-      if (e.matches) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
+      // Only update if user hasn't set a preference
+      if (!localStorage.getItem('theme')) {
+        setIsDark(e.matches);
+        if (e.matches) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
       }
     };
     
@@ -41,14 +60,27 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     return () => darkModeMediaQuery.removeEventListener('change', handler);
   }, []);
   
+  // Toggle theme function
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-    } else {
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
+    
+    if (newIsDark) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
+    
+    // Dispatch event to notify other components about theme change
+    window.dispatchEvent(new Event('storage'));
   };
+
+  // Only render fully when initialized to prevent flash
+  if (!isInitialized) {
+    return null; // or a loading spinner
+  }
 
   // Particles for the dark mode only
   const particles = Array(10).fill(null);
