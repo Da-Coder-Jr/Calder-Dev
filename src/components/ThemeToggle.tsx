@@ -71,17 +71,19 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   };
 
   return (
-    <div
+    <motion.div
       className={cn(
-        "flex w-16 h-8 p-1 rounded-full cursor-pointer transition-all duration-300",
+        "flex w-16 h-8 p-1 rounded-full cursor-pointer transition-colors",
         isDark 
-          ? "bg-zinc-950 border border-zinc-800" 
-          : "bg-white border border-zinc-200",
+          ? "bg-[#221F26] border border-[#403E43]" 
+          : "bg-[#F5F5F7] border border-[#E0E0E5]",
         className
       )}
       onClick={toggleTheme}
       role="button"
       tabIndex={0}
+      whileTap={{ scale: 0.95 }}
+      initial={false}
     >
       <div className="flex justify-between items-center w-full">
         <motion.div
@@ -89,7 +91,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             "flex justify-center items-center w-6 h-6 rounded-full",
           )}
           animate={{
-            backgroundColor: isDark ? "rgb(39, 39, 42)" : "rgb(229, 231, 235)",
+            backgroundColor: isDark ? "#403E43" : "#FFFFFF",
             x: isDark ? 0 : 32
           }}
           transition={{ 
@@ -108,7 +110,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
                 transition={{ duration: 0.2 }}
               >
                 <Moon 
-                  className="w-4 h-4 text-white" 
+                  className="w-4 h-4 text-[#D6BCFA]" 
                   strokeWidth={1.5}
                 />
               </motion.div>
@@ -121,7 +123,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
                 transition={{ duration: 0.2 }}
               >
                 <Sun 
-                  className="w-4 h-4 text-gray-700" 
+                  className="w-4 h-4 text-[#33C3F0]" 
                   strokeWidth={1.5}
                 />
               </motion.div>
@@ -135,7 +137,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
           isDark ? "opacity-70" : "opacity-0"
         )}>
           <Sun 
-            className="w-4 h-4 text-gray-500" 
+            className="w-4 h-4 text-[#9F9EA1]" 
             strokeWidth={1.5}
           />
         </div>
@@ -145,11 +147,11 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
           !isDark ? "opacity-70" : "opacity-0"
         )}>
           <Moon 
-            className="w-4 h-4 text-gray-600" 
+            className="w-4 h-4 text-[#888888]" 
             strokeWidth={1.5}
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
