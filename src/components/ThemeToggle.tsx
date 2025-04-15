@@ -13,7 +13,6 @@ interface ThemeToggleProps {
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const [isDark, setIsDark] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
   
   // Initialize theme from localStorage or system preference
   useEffect(() => {
@@ -40,8 +39,6 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     } else {
       document.documentElement.classList.remove('dark');
     }
-    
-    setIsInitialized(true);
     
     // Listen for changes in the system preference
     const handler = (e: MediaQueryListEvent) => {
@@ -72,15 +69,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
-    
-    // Dispatch event to notify other components about theme change
-    window.dispatchEvent(new Event('storage'));
   };
-
-  // Only render fully when initialized to prevent flash
-  if (!isInitialized) {
-    return null; // or a loading spinner
-  }
 
   // Particles for the dark mode only
   const particles = Array(10).fill(null);
@@ -94,10 +83,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       onClick={toggleTheme}
       className={cn(
-        "relative flex h-10 w-20 items-center overflow-hidden rounded-full border p-1 transition-colors duration-500",
+        "relative flex h-10 w-16 items-center overflow-hidden rounded-full border p-1 transition-colors duration-500",
         isDark 
-          ? "border-zinc-700 bg-gradient-to-br from-zinc-900 to-zinc-800" 
-          : "border-zinc-200 bg-gradient-to-br from-sky-100 to-white",
+          ? "border-zinc-700 bg-zinc-900" 
+          : "border-zinc-200 bg-white",
         className
       )}
     >
@@ -148,52 +137,14 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         )}
       </div>
 
-      {/* Icons container */}
-      <motion.div 
-        className="absolute inset-0 flex items-center justify-between px-2"
-        initial={false}
-      >
-        <motion.div
-          animate={{ 
-            scale: !isDark ? 1 : 0.7,
-            opacity: !isDark ? 1 : 0.5
-          }}
-          transition={{ duration: 0.4 }}
-        >
-          <Sun 
-            className={cn(
-              "h-5 w-5 transition-colors duration-300",
-              isDark ? "text-zinc-500" : "text-yellow-500 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]"
-            )} 
-            strokeWidth={1.5}
-          />
-        </motion.div>
-        
-        <motion.div
-          animate={{ 
-            scale: isDark ? 1 : 0.7,
-            opacity: isDark ? 1 : 0.5
-          }}
-          transition={{ duration: 0.4 }}
-        >
-          <Moon 
-            className={cn(
-              "h-5 w-5 transition-colors duration-300",
-              isDark ? "text-blue-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.5)]" : "text-zinc-400"
-            )} 
-            strokeWidth={1.5}
-          />
-        </motion.div>
-      </motion.div>
-      
       {/* Sliding Indicator */}
       <motion.div 
         className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full shadow-lg"
         animate={{ 
           x: isDark ? "calc(100% - 2px)" : "0%",
-          backgroundColor: isDark ? "rgb(30, 41, 59)" : "rgb(255, 255, 255)",
+          backgroundColor: isDark ? "rgb(39, 39, 42)" : "rgb(255, 255, 255)",
           boxShadow: isDark 
-            ? "0 0 10px 2px rgba(96,165,250,0.3), inset 0 0 6px rgba(96,165,250,0.5)" 
+            ? "0 0 10px 2px rgba(59, 130, 246, 0.3), inset 0 0 6px rgba(59, 130, 246, 0.5)" 
             : "0 0 10px 2px rgba(250,204,21,0.3), inset 0 0 6px rgba(250,204,21,0.3)"
         }}
         transition={{ 
