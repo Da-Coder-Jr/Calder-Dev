@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { AboutSection } from "@/components/AboutSection";
-import { ProjectsSection } from "@/components/ProjectsSection";
 import { Footer } from "@/components/Footer";
 import { AuroraBackground } from "@/components/AuroraBackground";
+import { GridPattern } from "@/components/GridPattern";
 import { motion } from "framer-motion";
 
 // Add framer-motion
@@ -64,8 +64,8 @@ const Index = () => {
         <Navbar />
         <Hero />
         <AboutSection />
-        <ProjectsSection />
         <Footer />
+        <GridPattern className="fixed inset-0 -z-10 opacity-10" />
       </motion.div>
     </AuroraBackground>
   );
