@@ -15,7 +15,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: "Home", url: "#home" },
   { name: "About", url: "#about" },
-  { name: "Projects", url: "#projects" },
+ 
 ];
 
 const MotionLink = motion.a;
