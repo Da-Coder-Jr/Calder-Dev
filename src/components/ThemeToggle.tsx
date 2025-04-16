@@ -11,10 +11,10 @@ interface ThemeToggleProps {
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const [isDark, setIsDark] = useState(true)
 
-  // next-themes
-  // const { resolvedTheme, setTheme } = useTheme()
-  // const isDark = resolvedTheme === "dark"
-  // onClick={() => setTheme(isDark ? "light" : "dark")}
+   next-themes
+   const { resolvedTheme, setTheme } = useTheme()
+   const isDark = resolvedTheme === "dark"
+   onClick={() => setTheme(isDark ? "light" : "dark")}
 
   return (
     <div
